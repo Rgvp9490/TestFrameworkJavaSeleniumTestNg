@@ -26,5 +26,6 @@ public class HomePageTest extends base {
 }
 
 
-// mvn test -Dtest=HomePageTest
-// mvn test -Dtest=HomePageTest#Test1
+// mvn test -Dtest=HomePageTest    - run class
+// mvn test -Dtest=HomePageTest#Test1  - run individual test
+// mvn test "-DsuiteXmlFile=src/test/java/suites/experiment.xml"   - run suite
