@@ -29,3 +29,4 @@ public class HomePageTest extends base {
 // mvn test -Dtest=HomePageTest    - run class
 // mvn test -Dtest=HomePageTest#Test1  - run individual test
 // mvn test "-DsuiteXmlFile=src/test/java/suites/experiment.xml"   - run suite
+// mvn clean package "exec:java" "-Dexec.args=-c defaultConfig"    - run current config
