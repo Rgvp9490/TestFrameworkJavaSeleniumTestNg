@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Experiment" thread-count="1" parallel="methods">
+
+
+    <test name="To verify when user clicks on Export button on Program Progress Tab">
+        <classes>
+            <class name="web.tests.homePageTest.HomePageTest">
+                <methods>
+                    <include name="Test1"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>

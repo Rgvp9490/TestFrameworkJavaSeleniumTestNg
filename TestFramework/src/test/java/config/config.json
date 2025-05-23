@@ -1,0 +1,8 @@
+{
+    "defaultConfig": {
+        "platform": "web",
+        "browser": "chrome",
+        "env": "https://www.youtube.com",
+        "apiTestEnable": false
+    }
+} 

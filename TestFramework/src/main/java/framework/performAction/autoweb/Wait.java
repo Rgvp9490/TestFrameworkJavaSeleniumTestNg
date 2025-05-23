@@ -1,0 +1,99 @@
+package framework.performAction.autoweb;
+
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import framework.locatorReader.locatorHelper;
+
+import java.time.Duration;
+import java.util.List;
+import java.util.function.Function;
+
+public class Wait {
+
+    WebDriver driver;
+    Class<?> pageClass;
+
+    public Wait(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public void setPageClass(Class<?> pageClass) {
+        this.pageClass = pageClass;
+    }
+
+    private WebElement getElement(String locatorKey) {
+        if (pageClass == null) {
+            throw new IllegalStateException("Page class not set. Call setPageClass() before using wait methods.");
+        }
+        return locatorHelper.getElement(driver, pageClass, locatorKey);
+    }
+
+//    private List<WebElement> getElements(String locatorKey) {
+//        return locatorHelper.getElements(driver, this.getClass().getDeclaringClass(), locatorKey);
+//    }
+
+    public void waitUntilElementIsClickable(String locatorKey) {
+        new WebDriverWait(driver, Duration.ofSeconds(60))
+                .until(ExpectedConditions.elementToBeClickable(getElement(locatorKey)));
+    }
+
+    public void waitUntilElementIsVisible(String locatorKey) {
+        System.out.println("###########");
+        new WebDriverWait(driver, Duration.ofSeconds(60))
+                .until(ExpectedConditions.visibilityOf(getElement(locatorKey)));
+    }
+
+    public void waitUntilElementIsInvisible(String locatorKey) {
+        new WebDriverWait(driver, Duration.ofSeconds(60))
+                .until(ExpectedConditions.invisibilityOf(getElement(locatorKey)));
+    }
+
+//    public void waitUntilAllElementsAreVisible(String locatorKey) {
+//        new WebDriverWait(driver, Duration.ofSeconds(60))
+//                .until(ExpectedConditions.visibilityOfAllElements(getElements(locatorKey)));
+//    }
+//
+//    public void waitUntilAllElementsAreInvisible(String locatorKey) {
+//        new WebDriverWait(driver, Duration.ofSeconds(60))
+//                .until(ExpectedConditions.invisibilityOfAllElements(getElements(locatorKey)));
+//    }
+
+    public void waitUntilAlertIsPresent() {
+        new WebDriverWait(driver, Duration.ofSeconds(60))
+                .until(ExpectedConditions.alertIsPresent());
+    }
+
+    public void waitForSeconds(int seconds) {
+        try {
+            Thread.sleep(seconds * 1000L);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public void fluentWaitUntilElementIsVisible(String locatorKey) {
+        new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(60))
+                .pollingEvery(Duration.ofSeconds(2))
+                .ignoring(NoSuchElementException.class)
+                .until(driver -> getElement(locatorKey).isDisplayed());
+    }
+
+    public void fluentWaitForElementAndClick(String locatorKey, int timeoutSeconds, int pollingSeconds) {
+        FluentWait<WebDriver> wait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(timeoutSeconds))
+                .pollingEvery(Duration.ofSeconds(pollingSeconds))
+                .ignoring(Exception.class);
+
+        WebElement elementToClick = wait.until(new Function<WebDriver, WebElement>() {
+            public WebElement apply(WebDriver driver) {
+                return getElement(locatorKey);
+            }
+        });
+        elementToClick.click();
+    }
+}

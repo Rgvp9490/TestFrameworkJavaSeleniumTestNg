@@ -1,0 +1,10 @@
+{
+  "searchBox": {
+    "by": "name",
+    "value": "search_query"
+  },
+  "searchButton": {
+    "by": "id",
+    "value": "search-icon-legacy"
+  }
+}

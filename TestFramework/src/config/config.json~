@@ -1,0 +1,39 @@
+{
+  "run": "defaultConfig",
+  "config": {
+    "defaultConfig": {
+      "platform": "web",
+      "env": "https://example.com",
+      "browser": "chrome",
+      "isGrid": false,
+      "capabilities": {
+        "browserVersion": "latest"
+      },
+      "testNGsuite": [
+        "experiment.xml"
+      ],
+      "apiTestConfig": {
+        "enable": false,
+        "env": "https://api.example.com"
+      }
+    },
+
+    "apiOnlyConfig": {
+      "platform": "api",
+      "env": "",
+      "browser": "",
+      "isGrid": false,
+      "apiTestConfig": {
+        "enable": true,
+        "env": "https://api.example.com"
+      }
+    },
+
+    "mobileConfig": {
+      "platform": "android",
+      "env": "",
+      "browser": "",
+      "isGrid": false
+    }
+  }
+}
