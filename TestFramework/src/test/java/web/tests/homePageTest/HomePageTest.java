@@ -15,4 +15,16 @@ public class HomePageTest extends base {
         home.maximizeWindow();
         home.searchYouTube("Bruno Mars Uptown Funk");
     }
+
+    @Test
+    public void Test2() {
+        homePage home = new homePage(driver);
+        Logger.info("Starting Test2");
+        home.maximizeWindow();
+        home.searchYouTube("hello bro");
+    }
 }
+
+
+// mvn test -Dtest=HomePageTest
+// mvn test -Dtest=HomePageTest#Test1
